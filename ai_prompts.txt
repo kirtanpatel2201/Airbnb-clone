@@ -1,0 +1,136 @@
+Take-Home Task: Airbnb Clone
+AI-Assisted Development Prompt History
+Note: Development was highly collaborative, combining manual UI implementation with AI assistance for boilerplate, SVGs, and specific CSS transitions.
+
+[2026-08-20 10:00:00] User:
+I need to build an Airbnb clone for a take-home task. Let's start with Vite and React.
+
+[2026-08-20 10:08:02] User:
+Help me set up the initial directory structure inside src/. I'll need folders for components, assets, and styles.
+
+[2026-08-20 10:18:58] User:
+What's the best way to define global CSS variables for the exact Airbnb colors and typography?
+
+[2026-08-20 10:28:06] User:
+I'll use Inter as the font. Please provide the link tag for Google Fonts.
+
+[2026-08-20 10:39:47] User:
+Let's build the navigation bar first. Give me the CSS to align the logo on the left, search pill in the middle, and profile menu on the right.
+
+[2026-08-20 10:45:45] User:
+The search pill needs a shadow on hover. I'll write the CSS transition, but what are the exact shadow values Airbnb uses?
+
+[2026-08-20 10:51:54] User:
+I need the SVG for the Airbnb logo, but just the icon part in #FF385C.
+
+[2026-08-20 11:02:09] User:
+Okay, nav bar looks good. Now the main photo grid. I'll use CSS grid. What's the best grid-template-areas configuration for 1 large hero image and 4 small ones?
+
+[2026-08-20 11:12:32] User:
+The border radius on the images is slightly different on the outer corners. I'll write the nth-child selectors. Can you review this CSS?
+
+[2026-08-20 11:16:14] User:
+Let's add the 'Show all photos' button floating on the bottom right of the grid.
+
+[2026-08-20 11:26:14] User:
+Moving on to the main content area. I'll use a flex container with a 2-column layout (main details and sticky booking widget).
+
+[2026-08-20 11:33:56] User:
+I'm writing the HTML for the title and host info. What's the text exactly?
+
+[2026-08-20 11:41:12] User:
+I need the Superhost badge SVG.
+
+[2026-08-20 11:45:53] User:
+I'm styling the amenities section. I'll do a simple list first. Can you give me the SVGs for Wifi, Kitchen, Pool, and Free parking?
+
+[2026-08-20 11:49:31] User:
+Let's build the 'Show all 50 amenities' modal. When the button is clicked, I'll set a React state `isAmenitiesOpen` to true.
+
+[2026-08-20 11:56:23] User:
+I'm writing the modal overlay CSS. How can I center the modal box perfectly using flexbox?
+
+[2026-08-20 11:59:49] User:
+I'll add the close button to the modal header. What is the SVG for the 'X' icon?
+
+[2026-08-20 12:10:50] User:
+The modal content is scrolling but the header is scrolling with it. How do I make the header sticky inside the modal container?
+
+[2026-08-20 12:20:29] User:
+I need to lock the body scroll when the modal is open. What's the best way to do this in a React `useEffect`?
+
+[2026-08-20 12:26:59] User:
+Let's flesh out the booking widget on the right. I'll write the sticky positioning.
+
+[2026-08-20 12:31:30] User:
+The booking widget has a price calculator. I'll manage the state for number of guests. Can you give me the CSS for the 'Reserve' button gradient?
+
+[2026-08-20 12:40:13] User:
+I need to implement a full-screen Photo Tour. I'll create a new component for it.
+
+[2026-08-20 12:51:12] User:
+When the Photo Tour opens, it needs a navigation bar at the top. I'll build it. Can you give me the Share and Save SVGs?
+
+[2026-08-20 13:02:59] User:
+For the photo tour, I need to group images by rooms (Living room, Bedroom, etc). I'll write the data array. How can I implement a smooth scroll spy for the navigation?
+
+[2026-08-20 13:06:26] User:
+I'm having trouble with the scroll offset because of the sticky header. How do I account for the header height when using `scrollIntoView`?
+
+[2026-08-20 13:18:28] User:
+I'm building the Lightbox for single image viewing. I'll track `currentImageIndex`. How do I add keyboard event listeners for left and right arrows?
+
+[2026-08-20 13:27:31] User:
+The keyboard listeners are working, but they're firing multiple times. I'll add a cleanup function in the `useEffect`.
+
+[2026-08-20 13:34:09] User:
+I need to add a crossfade transition when the image changes in the lightbox. Can you provide the CSS animation?
+
+[2026-08-20 13:42:38] User:
+Let's refine the spacing and typography across the whole page to make it pixel-perfect.
+
+[2026-08-20 13:50:41] User:
+I'll adjust the padding on the review section. Can you provide the SVG for the star icon used in the reviews?
+
+[2026-08-20 13:52:59] User:
+I'm noticing the text color on secondary text is a bit too dark. What is the exact hex code for Airbnb's muted text?
+
+[2026-08-20 13:56:29] User:
+I will go through and rename my CSS classes to be more semantic, like `ui-container` and `widget-box`.
+
+[2026-08-20 14:02:46] User:
+I'm cleaning up my React component structure. I'll extract the modal logic into a separate file.
+
+[2026-08-20 14:15:27] User:
+Wait, I'll just keep it in App.tsx for simplicity to avoid over-engineering as the instructions suggest.
+
+[2026-08-20 14:25:21] User:
+Let's do a final review of the accessibility. I'll add `aria-hidden` and `role=dialog` to my modals.
+
+[2026-08-20 14:34:48] User:
+I'll test the keyboard focus trap inside the modal.
+
+[2026-08-20 14:44:05] User:
+The focus trap is a bit complex, I might just rely on basic tab indexing for now to save time.
+
+[2026-08-20 14:53:15] User:
+I'll run a build to check for errors.
+
+[2026-08-20 14:55:31] User:
+The build looks good. I need to generate an architecture diagram now. Can you provide the Mermaid syntax for a simple React + Vercel deployment architecture?
+
+[2026-08-20 15:06:59] User:
+Thanks. I'll add a section for local storage usage in the diagram.
+
+[2026-08-20 15:16:25] User:
+I'll write the README.md file now. What should I include?
+
+[2026-08-20 15:25:06] User:
+I'll add instructions on how to run the project locally.
+
+[2026-08-20 15:34:51] User:
+I'll also mention that I used AI for boilerplate and SVG generation, but wrote the core logic myself.
+
+[2026-08-20 15:43:30] User:
+Final check of the production build. Looks solid. Ready to deploy.
+
