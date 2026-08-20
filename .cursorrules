@@ -1,0 +1,10 @@
+﻿# Custom AI Agent Configuration for Airbnb Clone
+# This config ensures the coding assistant maintains strict adherence to the project requirements.
+
+rules:
+  - "Always use functional React components with hooks (useState, useEffect)."
+  - "Strictly match the provided layout, typography, and spacing from the reference URL."
+  - "Do not use UI libraries like Material-UI, Tailwind, or Bootstrap. Use custom CSS classes for absolute styling control."
+  - "Optimize SVG assets by inlining them directly into components to prevent HTTP overhead."
+  - "When implementing modals or overlays, always trap focus and ensure `aria-hidden` attributes are toggled for accessibility."
+  - "Prevent body scrolling when full-screen components (Photo Tour, Lightbox) are active."
