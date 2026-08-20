@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Airbnb Architecture Diagram</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 40px; max-width: 1000px; margin: 0 auto; color: #333; }
+        h1, h2, h3 { color: #FF385C; }
+        .mermaid { margin: 40px 0; display: flex; justify-content: center; }
+        .content { line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Production-Scale Airbnb Architecture</h1>
+        <p>This architecture diagram illustrates the high-level scaling strategy for a production-level vacation-rental marketplace, handling global traffic, search optimization, and robust media storage.</p>
+        <p><strong>Live Vercel Deployment:</strong> <a href="https://airbnb-clone-x.vercel.app/" target="_blank">https://airbnb-clone-x.vercel.app/</a></p>
+        
+        <h2>System Architecture Diagram</h2>
+        <div class="mermaid">
+graph TD
+    Client[Web & Mobile Clients]
+    CDN[Cloudflare CDN / Vercel Edge]
+    Gateway[API Gateway / Load Balancer]
+    
+    subgraph Frontend
+        WebUI[React / Next.js Web App]
+    end
+    
+    subgraph Backend Microservices
+        AuthService[Authentication Service]
+        PropertyService[Listing & Property Service]
+        BookingService[Booking & Transaction Service]
+        SearchService[Search & Discovery Service]
+    end
+    
+    subgraph Data & Storage Layer
+        MainDB[(PostgreSQL - Primary DB)]
+        Cache[(Redis - Session & Cache)]
+        SearchIndex[(Elasticsearch - Fast Queries)]
+        ObjectStore[(AWS S3 - Media Storage)]
+    end
+    
+    Client -->|HTTPS| CDN
+    CDN --> WebUI
+    CDN --> Gateway
+    
+    Gateway --> AuthService
+    Gateway --> PropertyService
+    Gateway --> BookingService
+    Gateway --> SearchService
+    
+    AuthService --> MainDB
+    PropertyService --> MainDB
+    PropertyService --> ObjectStore
+    BookingService --> MainDB
+    BookingService --> Cache
+    
+    SearchService --> SearchIndex
+    PropertyService -.->|Syncs data| SearchIndex
+        </div>
+
+        <h2>Component Breakdown</h2>
+        <h3>1. Frontend & Deployment</h3>
+        <p><strong>Tech Stack:</strong> React (Vite) for high-performance UI rendering.<br>
+        <strong>Scaling:</strong> Deployed on Vercel's Edge Network, utilizing a global CDN to serve static assets instantly with sub-second latency worldwide.</p>
+
+        <h3>2. Backend Microservices</h3>
+        <p><strong>Authentication:</strong> Handles JWT-based user login and secure sessions.<br>
+        <strong>Property & Booking:</strong> Dedicated Node.js/Go services to independently scale high-read operations versus high-consistency write operations.<br>
+        <strong>Search & Discovery:</strong> A dedicated service querying Elasticsearch to support complex geographic searches, date filtering, and price range sorting in milliseconds.</p>
+
+        <h3>3. Data & Storage</h3>
+        <p><strong>PostgreSQL:</strong> Primary relational database ensuring ACID compliance for critical booking transactions.<br>
+        <strong>Redis:</strong> Provides high-speed caching for frequently accessed listings.<br>
+        <strong>Elasticsearch:</strong> Dedicated search index optimized for geospatial and text-based property searches.<br>
+        <strong>AWS S3:</strong> Scalable object storage for hosting property images, integrated with a CDN.</p>
+    </div>
+</body>
+</html>
