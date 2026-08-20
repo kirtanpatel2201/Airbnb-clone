@@ -1,74 +1,89 @@
-﻿# Production-Scale Airbnb Architecture
+﻿# Airbnb Clone Take-Home Task
 
-This architecture diagram illustrates the high-level scaling strategy for a production-level vacation-rental marketplace, handling global traffic, search optimization, and robust media storage.
+Welcome to my submission for the Airbnb Clone take-home task. This project is a highly-accurate, pixel-perfect clone of the Airbnb listing page, built with modern web technologies. 
 
-**Live Vercel Deployment:** https://airbnb-clone-x.vercel.app/
+**Live Deployment (Vercel):** https://airbnb-clone-x.vercel.app/
 
-## System Architecture Diagram
+## 🌟 Key Features
+- **Pixel-Perfect UI:** Meticulous attention to layout, typography, colors, and spatial harmony mirroring the reference.
+- **Dynamic Overlays:** 
+  - **Amenities Modal:** A fully responsive scrolling overlay containing all 50 amenities.
+  - **Photo Tour:** A full-screen masonry gallery categorized by room types with sticky header navigation.
+  - **Lightbox:** Interactive single-image viewing with keyboard navigation and cross-fade animations.
+- **Performance Optimized:** Clean component structure, purged unused CSS, and extremely lightweight bundled assets.
+
+## 🛠️ Technology Stack
+- **Frontend Framework:** React 18
+- **Build Tool:** Vite
+- **Language:** TypeScript
+- **Styling:** Custom CSS (Semantic custom-class methodology)
+- **Deployment:** Vercel (Edge Network)
+
+## 🚀 Running the Project Locally
+
+To run this project on your local machine, follow these steps:
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+## 📐 Architecture Overview
+Given the task constraints, I opted for a **Frontend-Focused Strategy**:
+- **UI & State:** React manages all modal and lightbox state variables logically. 
+- **Global CDN:** Deployed on Vercel to ensure sub-second global response times and edge caching.
+- Please refer to the Architecture Diagram below for a complete visual overview of the scaling and deployment strategy.
+
+## 🤖 AI Development Workflow
+This project was built using a hybrid workflow. I handled the core layout logic, DOM structure, CSS grid systems, and state management manually. AI was leveraged specifically for generating SVG assets, boilerplate configuration, and complex CSS transitions. Please refer to `ai_prompts.txt` for the exact sequence of 44 prompts utilized during the 5-hour development timeframe.
+
+
+---
+
+# High-Level Architecture Diagram
+## Airbnb Clone (Frontend-Focused Deployment)
+
+As per the implementation choice to keep the application simple and focused, this architecture illustrates a **Frontend-Only** strategy leveraging browser storage, deployed for global scale.
 
 ```mermaid
 graph TD
-    %% Clients & CDN
+    %% Clients
     Client[Web & Mobile Clients]
-    CDN[Cloudflare CDN / Vercel Edge]
     
-    %% API Gateway & Load Balancing
-    Gateway[API Gateway / Load Balancer]
-    
-    %% Frontend Services
-    subgraph Frontend
-        WebUI[React / Next.js Web App]
+    %% Edge & Deployment
+    subgraph Vercel Edge Network
+        CDN[Global CDN]
+        Hosting[Vercel Static Hosting]
     end
     
-    %% Microservices
-    subgraph Backend Microservices
-        AuthService[Authentication Service]
-        PropertyService[Listing & Property Service]
-        BookingService[Booking & Transaction Service]
-        SearchService[Search & Discovery Service]
+    %% Frontend App
+    subgraph React / Vite Application
+        UI[UI Components]
+        State[React State Management]
+        LocalStore[(Browser LocalStorage / SessionStorage)]
     end
+
+    %% Flow
+    Client --> CDN
+    CDN --> Hosting
+    Hosting --> UI
     
-    %% Storage Layer
-    subgraph Data & Storage Layer
-        MainDB[(PostgreSQL - Primary DB)]
-        Cache[(Redis - Session & Cache)]
-        SearchIndex[(Elasticsearch - Fast Queries)]
-        ObjectStore[(AWS S3 - Media Storage)]
-    end
-    
-    %% Data Flow
-    Client -->|HTTPS| CDN
-    CDN --> WebUI
-    CDN --> Gateway
-    
-    Gateway --> AuthService
-    Gateway --> PropertyService
-    Gateway --> BookingService
-    Gateway --> SearchService
-    
-    AuthService --> MainDB
-    PropertyService --> MainDB
-    PropertyService --> ObjectStore
-    BookingService --> MainDB
-    BookingService --> Cache
-    
-    SearchService --> SearchIndex
-    PropertyService -.->|Syncs data| SearchIndex
+    UI --> State
+    State <--> LocalStore
 ```
 
-## Component Breakdown
-
-### 1. Frontend & Deployment
-- **Tech Stack:** React (Vite/Next.js) for high-performance UI rendering.
-- **Scaling:** Deployed on Vercel's Edge Network, utilizing a global CDN to serve static assets instantly with sub-second latency worldwide.
-
-### 2. Backend Microservices
-- **Authentication:** Handles JWT-based user login and secure sessions.
-- **Property & Booking:** Dedicated Node.js/Go services to independently scale high-read operations (viewing listings) versus high-consistency write operations (reserving dates).
-- **Search & Discovery:** A dedicated service querying Elasticsearch to support complex geographic searches, date filtering, and price range sorting in milliseconds.
-
-### 3. Data & Storage
-- **PostgreSQL:** The primary relational database ensuring ACID compliance for critical booking transactions and user data.
-- **Redis:** Provides high-speed caching for frequently accessed listings and manages temporary user session states.
-- **Elasticsearch:** Dedicated search index optimized for geospatial and text-based property searches.
-- **AWS S3:** Scalable object storage for hosting thousands of high-resolution property images, integrated with a CDN for fast global delivery.
+### Architecture Strategy:
+1. **Frontend**: Built entirely in React using Vite for ultra-fast bundling.
+2. **Deployment**: Deployed on Vercel's Edge Network. Vercel acts as a global CDN, serving the static assets instantly to users worldwide, ensuring high availability and low latency.
+3. **Storage (Frontend)**: As permitted by the guidelines to keep the scope focused, all user session data (like saved properties or search history) is stored entirely in the browser's `LocalStorage`.
+4. **Search**: Handled entirely on the client-side via JavaScript filtering over the localized JSON state, eliminating the need for a complex backend search engine.
